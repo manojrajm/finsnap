@@ -1,70 +1,117 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <a href="[https://github.com/manojrajm/frontend](https://github.com/manojrajm/frontdesk?tab=readme-ov-file)">
+    <img src="./public//Logo.png" alt="Logo" width="120" height="120"> 
+    
+  </a>
+  <h1>FinSnap</h1>
+</div>
 
-## Available Scripts
 
-In the project directory, you can run:
+## Overview
+**FinSnap** is a **Billing and Invoice Management System** designed for small and medium-sized businesses. It provides a professional, user-friendly interface for managing invoices, tracking payments, and visualizing financial data in real time. Built with **React** and **Firebase**, FinSnap ensures fast and reliable performance.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
+- **Dashboard Overview**:
+  - Displays total payments, recent invoices, and invoice counts.
+  - Interactive cards with hover effects for key metrics.
+- **Invoice Management**:
+  - Create, view, and manage invoices.
+  - Real-time updates with Firebase Firestore.
+- **Dynamic Navigation**:
+  - Seamless transitions between Billing Form, Invoice Management, and Home views.
+- **Responsive Design**:
+  - Optimized for mobile and desktop screens.
+- **Modern UI**:
+  - Stylish components with smooth animations and shadow effects.
+  ----
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
+- **Frontend**: React, JSX
+- **Styling**: Custom CSS with modern design principles
+- **Backend**: Firebase Firestore (database)
+- **Deployment**: Github and Netify
 
-### `npm test`
+## Installation & Setup
+### Prerequisites
+Ensure you have **Node.js** installed. You also need a Firebase project set up.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Clone the Repository
+```sh
+git clone https://github.com/manojrajm/finsnap.git
 
-### `npm run build`
+cd finsnap
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Install Dependencies
+```sh
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Configure Firebase
+1. Create a **Firebase Project** at [Firebase Console](https://console.firebase.google.com/)
+2. Add a **Firestore Database** and **Storage**
+3. Generate Firebase config and add it in `src/firebase/FirebaseConfig.js`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Example `FirebaseConfig.js`:
+```js
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
-### `npm run eject`
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Run the Application
+```sh
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Usage
+1. **Billing Form**: Navigate to the BillingForm view to add new invoices.
+2. **Dashboard**: View real-time statistics on payments and invoices.
+3. **Invoices**: Explore recent invoices and their statuses.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+4. **Download Report**: Click the **Download Pdf** button to save booking details.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
+```
+/src
+  ├── components/   # Reusable UI Components
+  ├── firebase/     # Firebase configuration
+  ├── pages/        # Main app pages
+  ├── styles/       # Global styles
+  ├── App.js        # Entry point
+  ├── index.js      # Renders the app
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment
+You can deploy the project using **Vercel**, **Netlify**, or **Firebase Hosting**.
 
-### Code Splitting
+Example (Firebase Hosting):
+```sh
+npm run build
+firebase deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Future Improvements
+- Payment Gateway Integration
+- Advanced Reporting & Analytics
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
