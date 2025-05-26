@@ -1,7 +1,7 @@
 
 <div align="center">
-  <a href="[https://github.com/manojrajm/frontend](https://github.com/manojrajm/frontdesk?tab=readme-ov-file)">
-    <img src="./public//Logo.png" alt="Logo" width="120" height="120"> 
+  <a href="[https://github.com/manojrajm/finsnap](https://github.com/manojrajm/finsnap?tab=readme-ov-file)">
+    <img src="./public//Fs.png" alt="Logo" width="120" height="120"> 
     
   </a>
   <h1>FinSnap</h1>
