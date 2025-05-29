@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Homepages.css";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
-import logo from "../img/Fs.png"; 
+import logo from "../img/Fs.png";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
 import { toast } from "react-toastify";
-
-
 
 const Homepage = () => {
   const [recentInvoices, setRecentInvoices] = useState([]);
@@ -18,9 +16,10 @@ const Homepage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-
+  // Fetch invoices
   useEffect(() => {
     async function fetchInvoices() {
       setLoading(true);
@@ -66,13 +65,20 @@ const Homepage = () => {
       setCurrentTime(new Date());
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup on component unmount
+    return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
+
+  // Toggle navigation menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Logout handler
   const handleLogout = async () => {
     try {
       await signOut(auth);
       toast.success("Logged out successfully!");
-      navigate("/"); // Redirect to login or landing page
+      navigate("/");
     } catch (error) {
       console.error("Logout error:", error);
       toast.error("Failed to logout. Please try again.");
@@ -84,51 +90,46 @@ const Homepage = () => {
       <header className="bg-primary text-white py-3 shadow-sm">
         <div className="container d-flex justify-content-between align-items-center">
           {/* Live Time */}
-          <div className="text-light">
+          <div>
             <h6 className="m-0">
               {currentTime.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
             </h6>
           </div>
-          <div className="d-flex align-items-center">
+          <div>
             <img src={logo} alt="Logo" style={{ height: "70px", width: "80px" }} />
           </div>
-          <nav className="navbar navbar-expand-md navbar-dark bg-primary px-4 py-2 ">
-      <div className="container-fluid">
-        <div className="d-flex gap-3">
-          <button
-            className="btn btn-link text-white fw-semibold"
-            onClick={() => navigate("/")}
-          >
-            <i className="fas fa-home me-1"></i> Home
+          <button className="menu-btn" onClick={toggleMenu}>
+            ☰
           </button>
-          <button
-            className="btn btn-link text-white fw-semibold"
-            onClick={() => navigate("/billing-form")}
-          >
-            <i className="fas fa-file-invoice-dollar me-1"></i> Billing Form
-          </button>
-          <button
-            className="btn btn-link text-white fw-semibold"
-            onClick={() => navigate("/invoice")}
-          >
-            <i className="fas fa-receipt me-1"></i> Invoice
-          </button>
-          <button
-            className="btn btn-link text-white fw-semibold"
-            onClick={handleLogout}
-            >
-            <i className="fas fa-sign-out-alt me-1"></i> Logout
-          </button>
-        </div>
-      </div>
-    </nav>
         </div>
       </header>
+
+      {/* Navigation Menu */}
+      {isMenuOpen && (
+        <nav className="nav open">
+          <button className="close-btn" onClick={toggleMenu}>
+            ✖
+          </button>
+          <button className="btn btn-link text-white fw-semibold" onClick={() => navigate("/")}>
+            <i className="fas fa-home me-1"></i> Home
+          </button>
+          <button className="btn btn-link text-white fw-semibold" onClick={() => navigate("/billing-form")}>
+            <i className="fas fa-file-invoice-dollar me-1"></i> Billing Form
+          </button>
+          <button className="btn btn-link text-white fw-semibold" onClick={() => navigate("/invoice")}>
+            <i className="fas fa-receipt me-1"></i> Invoice
+          </button>
+          <button className="btn btn-link text-white fw-semibold" onClick={handleLogout}>
+            <i className="fas fa-sign-out-alt me-1"></i> Logout
+          </button>
+        </nav>
+      )}
+
       <main className="container flex-grow-1 py-4">
         {error && <div className="alert alert-danger">{error}</div>}
         <section className="mb-4">
           <div className="row g-3">
-            <div className="col-6 col-md-3">
+            <div className="col-md-3">
               <div className="card text-center shadow-sm">
                 <div className="card-body">
                   <h5 className="card-title">Total Payments</h5>
@@ -136,7 +137,7 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-6 col-md-3">
+            <div className="col-md-3">
               <div className="card text-center shadow-sm">
                 <div className="card-body">
                   <h5 className="card-title">Invoices Generated</h5>
@@ -144,7 +145,7 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-6 col-md-3">
+            <div className="col-md-3">
               <div className="card text-center shadow-sm">
                 <div className="card-body">
                   <h5 className="card-title">Pending Amount</h5>
@@ -154,6 +155,7 @@ const Homepage = () => {
             </div>
           </div>
         </section>
+
         <section>
           <h2 className="h5 mb-3">Recent Invoices</h2>
           <div className="table-responsive shadow-sm bg-white rounded">
@@ -194,6 +196,7 @@ const Homepage = () => {
           </div>
         </section>
       </main>
+
       <footer className="bg-dark text-white text-center py-3 mt-auto">
         <small>© 2025 Billing Software. All rights reserved. | Terms | Privacy</small>
       </footer>

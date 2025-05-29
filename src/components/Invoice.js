@@ -83,7 +83,7 @@ const Invoice = () => {
         doc.setFont("helvetica", "bold");
         doc.text(`${label}:`, x, y);
         doc.setFont("helvetica", "normal");
-        doc.text(String(value || "N/A"), x + 50, y);
+        doc.text(String(value || "N/A"), x + 100, y);
       };
   
       let y = 75;
